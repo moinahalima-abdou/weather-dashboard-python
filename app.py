@@ -46,12 +46,7 @@ if st.button("Rechercher"):
         ax1.set_title(f"Météo de {data['city']}")
         st.pyplot(fig1)
 
-        # --- LINE CHART ---
-        st.write("📈 Graphique en courbe (bonus)")
-        fig2, ax2 = plt.subplots()
-        ax2.plot(labels, values, marker="o")
-        ax2.set_title(f"Tendance météo de {data['city']}")
-        st.pyplot(fig2)
+       
 
 
 # 📜 HISTORIQUE
