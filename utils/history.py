@@ -8,7 +8,9 @@ class History:
     def add_city(self, city):
         history = self.load_history()
 
-        history.append(city)
+        # éviter les doublons (optionnel mais mieux)
+        if city not in history:
+            history.append(city)
 
         with open(self.filename, "w", encoding="utf-8") as file:
             json.dump(history, file, indent=4, ensure_ascii=False)
@@ -19,3 +21,14 @@ class History:
                 return json.load(file)
         except FileNotFoundError:
             return []
+
+    def show_history(self):
+        history = self.load_history()
+
+        if not history:
+            print("📭 Aucun historique.")
+            return
+
+        print("\n📜 Historique des recherches :")
+        for i, city in enumerate(history, 1):
+            print(f"{i}. {city}")
