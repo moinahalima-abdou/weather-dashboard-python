@@ -1,4 +1,5 @@
 import json
+from datetime import datetime
 
 
 class History:
@@ -8,9 +9,12 @@ class History:
     def add_city(self, city):
         history = self.load_history()
 
-        # éviter les doublons (optionnel mais mieux)
-        if city not in history:
-            history.append(city)
+        entry = {
+            "city": city,
+            "date": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        }
+
+        history.append(entry)
 
         with open(self.filename, "w", encoding="utf-8") as file:
             json.dump(history, file, indent=4, ensure_ascii=False)
@@ -30,5 +34,5 @@ class History:
             return
 
         print("\n📜 Historique des recherches :")
-        for i, city in enumerate(history, 1):
-            print(f"{i}. {city}")
+        for i, item in enumerate(history, 1):
+            print(f"{i}. {item['city']} ({item['date']})")
